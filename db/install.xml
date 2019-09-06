@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/stupla/db" VERSION="20070228" COMMENT="XMLDB file for Moodle mod/stupla"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="stupla" COMMENT="Base data for stupla instances" NEXT="stupla_action">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="course"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="course" NEXT="intro"/>
+        <FIELD NAME="intro" TYPE="text" LENGTH="big" NOTNULL="false" SEQUENCE="false" COMMENT="General introduction of the newmodule activity" PREVIOUS="name" NEXT="introformat"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)" PREVIOUS="intro" NEXT="timeopen"/>
+        <FIELD NAME="timeopen" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="introformat" NEXT="timeclose"/>
+        <FIELD NAME="timeclose" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timeopen" NEXT="location"/>
+        <FIELD NAME="location" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timeclose" NEXT="reference"/>
+        <FIELD NAME="reference" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="location" NEXT="localpath"/>
+        <FIELD NAME="localpath" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="reference" NEXT="password"/>
+        <FIELD NAME="password" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="localpath" NEXT="subnet"/>
+        <FIELD NAME="subnet" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="password" NEXT="timecreated"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="subnet" NEXT="timemodified"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timecreated"  NEXT="flags"/>
+        <FIELD NAME="flags" TYPE="int" LENGTH="2" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timemodified" NEXT="subuserdata"/>
+        <FIELD NAME="subuserdata" TYPE="text" LENGTH="small"  NOTNULL="false" SEQUENCE="false" PREVIOUS="flags" NEXT="subuserprotname"/>
+        <FIELD NAME="subuserprotname" TYPE="char" LENGTH="255"  NOTNULL="false" SEQUENCE="false" PREVIOUS="subuserdata"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for stupla"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="stupla_action" COMMENT="details about stupla action" PREVIOUS="stupla" NEXT="stupla_ex">
+      <FIELDS>
+        <FIELD NAME="id" 				TYPE="int" LENGTH="10" 	NOTNULL="true" UNSIGNED="true"						 		SEQUENCE="true"	 											NEXT="stupla"/>
+        <FIELD NAME="stupla" 		TYPE="int" LENGTH="10" 	NOTNULL="true" UNSIGNED="true" 	DEFAULT="0" 	SEQUENCE="false" PREVIOUS="id" 				NEXT="session"/>
+        <FIELD NAME="session" 		TYPE="int" LENGTH="10" 	NOTNULL="true" UNSIGNED="true" 	DEFAULT="0" 	SEQUENCE="false" PREVIOUS="stupla" 		NEXT="starttime"/>
+        <FIELD NAME="starttime" TYPE="int" LENGTH="10" 	NOTNULL="true" UNSIGNED="true" 	DEFAULT="0" 	SEQUENCE="false" PREVIOUS="session" 		NEXT="media"/>
+        <FIELD NAME="media" 		TYPE="int" LENGTH="6"		NOTNULL="true" UNSIGNED="false" DEFAULT="-99"	SEQUENCE="false" PREVIOUS="starttime" 	NEXT="topic"/>
+        <FIELD NAME="topic" 		TYPE="int" LENGTH="6"		NOTNULL="true" UNSIGNED="false" DEFAULT="-99" SEQUENCE="false" PREVIOUS="media" 			NEXT="nr"/>
+        <FIELD NAME="nr" 				TYPE="int" LENGTH="6"		NOTNULL="true" UNSIGNED="false" DEFAULT="-99" SEQUENCE="false" PREVIOUS="topic" 			NEXT="timestamp"/>
+        <FIELD NAME="timestamp" TYPE="int" LENGTH="10" 	NOTNULL="true" UNSIGNED="true" 	DEFAULT="0" 	SEQUENCE="false" PREVIOUS="nr" 				NEXT="duration"/>
+        <FIELD NAME="duration" 	TYPE="int" LENGTH="10" 	NOTNULL="true" UNSIGNED="true" 	DEFAULT="0" 	SEQUENCE="false" PREVIOUS="timestamp" 	NEXT="result"/>
+        <FIELD NAME="result" 		TYPE="int" LENGTH="6" 	NOTNULL="false" UNSIGNED="false" 							SEQUENCE="false" PREVIOUS="duration" 	NEXT="data"/>
+        <FIELD NAME="data" 			TYPE="text"  LENGTH="small" NOTNULL="false"  													SEQUENCE="false" PREVIOUS="result"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for stupla_action" NEXT="stupla"/>
+        <KEY NAME="stupla" TYPE="foreign" FIELDS="stupla" REFTABLE="stupla" REFFIELDS="id" PREVIOUS="primary" NEXT="session"/>
+        <KEY NAME="session" TYPE="foreign" FIELDS="session" REFTABLE="stupla_session" REFFIELDS="id" PREVIOUS="stupla"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="stupla_ex" COMMENT="details about stupla exercises for load" PREVIOUS="stupla_action" NEXT="stupla_sheet">
+      <FIELDS>
+        <FIELD NAME="id" 		TYPE="int" 	LENGTH="10" 	NOTNULL="true" UNSIGNED="true"					SEQUENCE="true"	 						NEXT="stupla"/>
+        <FIELD NAME="stupla" 	TYPE="int" 	LENGTH="10" 	NOTNULL="true" UNSIGNED="true" 	DEFAULT="0" 	SEQUENCE="false" PREVIOUS="id" 		NEXT="session"/>
+        <FIELD NAME="session" 	TYPE="int" 	LENGTH="10" 	NOTNULL="true" UNSIGNED="true" 	DEFAULT="0" 	SEQUENCE="false" PREVIOUS="stupla"		NEXT="starttime"/>
+        <FIELD NAME="starttime" TYPE="int" 	LENGTH="10" 	NOTNULL="true" UNSIGNED="true" 	DEFAULT="0" 	SEQUENCE="false" PREVIOUS="session" 	NEXT="media"/>
+        <FIELD NAME="media" 	TYPE="int" 	LENGTH="6"		NOTNULL="true" UNSIGNED="false" DEFAULT="-99"	SEQUENCE="false" PREVIOUS="starttime" 	NEXT="topic"/>
+        <FIELD NAME="topic" 	TYPE="int" 	LENGTH="6"		NOTNULL="true" UNSIGNED="false" DEFAULT="-99"	SEQUENCE="false" PREVIOUS="media" 		NEXT="nr"/>
+        <FIELD NAME="nr" 		TYPE="int" 	LENGTH="6"		NOTNULL="true" UNSIGNED="false" DEFAULT="-99"	SEQUENCE="false" PREVIOUS="topic" 		NEXT="ex"/>
+        <FIELD NAME="ex" 		TYPE="text" LENGTH="small" 	NOTNULL="false"  								SEQUENCE="false" PREVIOUS="nr"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for stupla_ex" NEXT="stupla"/>
+        <KEY NAME="stupla" TYPE="foreign" FIELDS="stupla" REFTABLE="stupla" REFFIELDS="id" PREVIOUS="primary" NEXT="session"/>
+        <KEY NAME="session" TYPE="foreign" FIELDS="session" REFTABLE="stupla_session" REFFIELDS="id" PREVIOUS="stupla"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="stupla_sheet" COMMENT="details about stupla sheets for load" PREVIOUS="stupla_ex" NEXT="stupla_plan">
+      <FIELDS>
+        <FIELD NAME="id" 				TYPE="int" 	LENGTH="10" 		NOTNULL="true" UNSIGNED="true"						 		SEQUENCE="true"	 				NEXT="stupla"/>
+        <FIELD NAME="stupla" 		TYPE="int" 	LENGTH="10" 		NOTNULL="true" UNSIGNED="true" 	DEFAULT="0" 	SEQUENCE="false" PREVIOUS="id" 				NEXT="session"/>
+        <FIELD NAME="session" 		TYPE="int" 	LENGTH="10" 		NOTNULL="true" UNSIGNED="true" 	DEFAULT="0" 	SEQUENCE="false" PREVIOUS="stupla"			NEXT="starttime"/>
+        <FIELD NAME="starttime" TYPE="int" 	LENGTH="10" 		NOTNULL="true" UNSIGNED="true" 	DEFAULT="0" 	SEQUENCE="false" PREVIOUS="session" 		NEXT="sheet"/>
+        <FIELD NAME="sheet"			TYPE="text" LENGTH="small" 	NOTNULL="false"  															SEQUENCE="false" PREVIOUS="starttime"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for stupla_sheet" NEXT="stupla"/>
+        <KEY NAME="stupla" TYPE="foreign" FIELDS="stupla" REFTABLE="stupla" REFFIELDS="id" PREVIOUS="primary" NEXT="session"/>
+        <KEY NAME="session" TYPE="foreign" FIELDS="session" REFTABLE="stupla_session" REFFIELDS="id" PREVIOUS="stupla"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="stupla_plan" COMMENT="details about stupla plans for load" PREVIOUS="stupla_sheet" NEXT="stupla_session">
+      <FIELDS>
+        <FIELD NAME="id" 				TYPE="int" 	LENGTH="10" 		NOTNULL="true" UNSIGNED="true"						 		SEQUENCE="true"	 											NEXT="stupla"/>
+        <FIELD NAME="stupla" 		TYPE="int" 	LENGTH="10" 		NOTNULL="true" UNSIGNED="true" 	DEFAULT="0" 	SEQUENCE="false" PREVIOUS="id" 				NEXT="session"/>
+        <FIELD NAME="session" 		TYPE="int" 	LENGTH="10" 		NOTNULL="true" UNSIGNED="true" 	DEFAULT="0" 	SEQUENCE="false" PREVIOUS="stupla"			NEXT="starttime"/>
+        <FIELD NAME="starttime" TYPE="int" 	LENGTH="10" 		NOTNULL="true" UNSIGNED="true" 	DEFAULT="0" 	SEQUENCE="false" PREVIOUS="session" 		NEXT="plan"/>
+        <FIELD NAME="plan"			TYPE="text" LENGTH="small" 	NOTNULL="false"  															SEQUENCE="false" PREVIOUS="starttime"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for stupla_plan" NEXT="stupla"/>
+        <KEY NAME="stupla" TYPE="foreign" FIELDS="stupla" REFTABLE="stupla" REFFIELDS="id" PREVIOUS="primary" NEXT="session"/>
+        <KEY NAME="session" TYPE="foreign" FIELDS="session" REFTABLE="stupla_session" REFFIELDS="id" PREVIOUS="stupla"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="stupla_session" COMMENT="details about an stupla session" PREVIOUS="stupla_plan">
+      <FIELDS>
+        <FIELD NAME="id"         TYPE="int"  LENGTH="10"    NOTNULL="true" UNSIGNED="true"                SEQUENCE="true"                        NEXT="stupla"/>
+        <FIELD NAME="stupla"     TYPE="int"  LENGTH="10"    NOTNULL="true" UNSIGNED="true"  DEFAULT="0"   SEQUENCE="false" PREVIOUS="id"         NEXT="userid"/>
+        <FIELD NAME="userid"     TYPE="int"  LENGTH="10"    NOTNULL="true" UNSIGNED="true"  DEFAULT="0"   SEQUENCE="false" PREVIOUS="stupla"     NEXT="data"/>
+        <FIELD NAME="data"       TYPE="text" LENGTH="small" NOTNULL="false"                               SEQUENCE="false" PREVIOUS="userid"     NEXT="starttime"/>
+        <FIELD NAME="starttime"  TYPE="int"  LENGTH="10"    NOTNULL="true" UNSIGNED="true"  DEFAULT="0"   SEQUENCE="false" PREVIOUS="data"       NEXT="flags"/>
+        <FIELD NAME="flags"      TYPE="int"  LENGTH="2"     NOTNULL="true" UNSIGNED="true"  DEFAULT="0"   SEQUENCE="false" PREVIOUS="starttime"  NEXT="archivetag"/>
+        <FIELD NAME="archivetag" TYPE="char" LENGTH="255"   NOTNULL="false"                               SEQUENCE="false" PREVIOUS="flags"/>
+        
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary"   TYPE="primary" FIELDS="id"  COMMENT="Primary key for stiupla_session"                           NEXT="stupla"/>
+        <KEY NAME="stupla"     TYPE="foreign" FIELDS="stupla"     REFTABLE="stupla"          REFFIELDS="id" PREVIOUS="primary"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+      </INDEXES>
+    </TABLE>
+
+  </TABLES>
+</XMLDB>

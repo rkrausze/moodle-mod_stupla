@@ -1,0 +1,48 @@
+Version 2016012200 - Fork to repository Moodle 2.7
+=========================
+* adaption for Moodle 2.7
+
+From repository Moodle2.x
+ 
+Version 
+=========================
+* fix for warnings on load of plans / sheets
+
+Version 2013102600
+=========================
+* fix for Umlaute in protocol
+* minor code beautifying
+
+Version 2013101400
+=========================
+* fix for not integer results in stupla_action
+* code beautifying
+* index page improved
+
+Verion 2013100900
+=========================
+* fix for data_load exercise attempt result 0% vs. canceled
+* code beautifying
+
+Version 2013093000
+=========================
+* protocol adapted or archivation
+* x01/x02 made backup save
+
+Version 2013092700
+=========================
+* archivation of sessions added
+
+Version 2013092500
+=========================
+* "Migration 1.9 - 2.x afterwards" , especially für Stupla Sprachen
+
+Version 2013092400
+=========================
+* minor fixes
+
+Version 2013061200
+=========================
+* consolidation with SNVs
+* protocol improved
+* tested on Moodle 2.0 - 2.3.7
