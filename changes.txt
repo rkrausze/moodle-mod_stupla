@@ -1,3 +1,7 @@
+Version 20191022100 - Fork to 3.3
+=========================
+* Fix for Moodle 3.3+
+
 Version 2016012200 - Fork to repository Moodle 2.7
 =========================
 * adaption for Moodle 2.7
