@@ -151,7 +151,7 @@ foreach ($stuplas as $stupla) {
 
     if ( $usereportcolumn ) {
         array_push($data,
-            "<a href=\"prot/prot.php?id=$stupla->coursemodule\">".get_string("protocol", "stupla")."</a>");
+            "<a href=\"prot/prot.php?id=$stupla->coursemodule\" target=\"_blank\">".get_string("protocol", "stupla")."</a>");
     }
 
     $table->data[] = $data;

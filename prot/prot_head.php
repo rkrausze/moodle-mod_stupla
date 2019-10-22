@@ -45,24 +45,27 @@ $PAGE->set_title(format_string($stupla->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 $PAGE->navbar->add(get_string('protocol', 'stupla'));
-$PAGE->set_pagelayout('frametop');
+$PAGE->set_pagelayout('standard');
 $PAGE->blocks->show_only_fake_blocks();
 $PAGE->requires->js('/mod/stupla/prot/ef_restore.js');
 
-echo str_replace('<a ', '<a target="_top" ', $OUTPUT->header());
+$sOut = $OUTPUT->header();
+$i = strpos($sOut, '</header>');
+$sOut = substr($sOut, 0, $i+9);
+echo str_replace('<a ', '<a target="_top" ', $sOut);
 
 $studies = stupla_get_studies();
 $sessions = stupla_prot_get_sessions($stupla);
 
 ?>
 <style type="text/css">
-  td, p { font-size:10pt;font-family:Arial;font-weight:bold }
-  body, .path-mod-stupla-prot, #page-header, #page-content { background-color:#FFFF99; }
-  /*.side-pre-only #page-content #region-main { margin-left: 10px; }*/
-  #page-content .region-content { overflow: hidden; padding: 0; }
-  /*#page-content #region-main { margin-left: 100px; }*/
+    td, p { font-size:10pt;font-family:Arial;font-weight:bold }
+    body, .path-mod-stupla-prot, #page-header, #page-content { background-color:#FFFF99; }
+    #page-content .region-content { overflow: hidden; padding: 0; }
+    body.drawer-open-left { margin-left: 0; }
+    footer { display: none; }
 </style>
-<form name="f" method="POST" target="data" action="prot_userlist.php" style="margin:0px;">
+<form name="f" method="POST" target="data" action="prot_userlist.php">
 <input type="hidden" name="n" value="<?php echo $stupla->id ?>"/>
 <input type="hidden" name="sortinfo" value="<?php echo $sortinfo ?>"/>
 <input type="hidden" name="groupSql" value="<?php echo $groupsql ?>">
@@ -70,7 +73,7 @@ $sessions = stupla_prot_get_sessions($stupla);
 <input type="hidden" name="groupData" value="<?php echo $groupdata ?>">
 <input type="hidden" name="inArchive" value="">
 
-<table border="0" width="100%" style="margin:0px;border-width:0px;">
+<table border="0" width="100%" style="margin-top:50px">
     <tr>
         <td valign="top">
             <select name="protaction" onchange="Action(this.value)">
@@ -558,4 +561,7 @@ var SpecialTopic = new Array();
 </script>
 <div>&nbsp;</div>
 <?php
-echo $OUTPUT->footer();
+$sOut = $OUTPUT->footer();
+$i = strpos($sOut, '<footer');
+$sOut = substr($sOut, $i);
+echo $sOut;
