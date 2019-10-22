@@ -1,2 +1,2 @@
 # moodle-mod_stupla
-Moddle module for study2000 8Studierplatz 2000)
+Moodle module for study2000 (Studierplatz 2000)

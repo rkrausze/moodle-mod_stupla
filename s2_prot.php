@@ -67,7 +67,7 @@ if ($type == "mark") {
     stupla_add_action($data);
     $b = explode(" ", $data2, 2);
     $d = explode(".", $b[0]);
-    $ex = new object();
+    $ex = new stdClass;
     $ex->stupla = $stupla->id;
     $ex->session = $sessionid;
     $ex->starttime = time();
@@ -78,7 +78,7 @@ if ($type == "mark") {
     $DB->insert_record('stupla_ex', $ex);
 } else if ($type == "sheet") {
     stupla_add_extra_action(STUPLA_SHEET, $data);
-    $sheet = new object();
+    $sheet = new stdClass;
     $sheet->stupla = $stupla->id;
     $sheet->session = $sessionid;
     $sheet->starttime = time();
@@ -86,7 +86,7 @@ if ($type == "mark") {
     $DB->insert_record('stupla_sheet', $sheet);
 } else if ($type == "plan") {
     stupla_add_extra_action(STUPLA_PLAN, $data);
-    $plan = new object();
+    $plan = new stdClass;
     $plan->stupla = $stupla->id;
     $plan->session = $sessionid;
     $plan->starttime = time();

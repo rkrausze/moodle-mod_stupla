@@ -579,7 +579,7 @@ function stupla_add_action($data) {
     $b = explode(" ", $data);
     $c = explode("&", $b[0]);
     $d = explode(".", $c[0]);
-    $action = new object();
+    $action = new stdClass;
     $action->stupla = $stupla->id;
     $action->session = $sessionid;
     $action->starttime = time();

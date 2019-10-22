@@ -24,7 +24,7 @@
  */
 
 require_once("../../../config.php");
-$headsize = optional_param('headsize', -1, PARAM_INT);
+$headsize =  50+30; // override in moodle 3 // optional_param('headsize', -1, PARAM_INT);
 
 if ( $headsize != -1 ) {
     echo '<frameset rows="', $headsize, ',*" border="0" frameborder="0" framespacing="0">',
