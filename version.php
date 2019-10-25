@@ -28,10 +28,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 20191022100;      // The current module version (Date: YYYYMMDDXX).
+$plugin->version   = 2019102500;      // The current module version (Date: YYYYMMDDXX).
 $plugin->requires  = 2014051200;      // Requires this Moodle version.
 $plugin->component = 'mod_stupla';    // To check on upgrade, that module sits in correct place.
 $plugin->cron      = 0;               // Period for cron to check this module (secs).
 
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '3.3 (Build: 20191022100)';
+$plugin->release = '3.3 (Build: 2019102500)';
