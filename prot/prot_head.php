@@ -77,7 +77,7 @@ $sessions = stupla_prot_get_sessions($stupla);
 <input type="hidden" name="groupData" value="<?php echo $groupdata ?>">
 <input type="hidden" name="inArchive" value="">
 
-<table border="0" width="100%" style="margin-top:50px">
+<table border="0" width="100%">
     <tr>
         <td valign="top">
             <select name="protaction" onchange="Action(this.value)">
