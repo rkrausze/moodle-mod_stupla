@@ -124,23 +124,33 @@ function su_addnew()
 {
     su_makesuData();
     var newSu = new Array();
-    newSu['name'] = document.forms.mform1['newsu_name'].value;
-    newSu['must'] = document.forms.mform1['newsu_must'].checked;
-    newSu['type'] = document.forms.mform1['newsu_type'].value;
-    newSu['comment'] = document.forms.mform1['newsu_comment'].value;
-    newSu['data'] = document.forms.mform1['newsu_data'].value;
+    var fm = stupla_fetch_form();
+    newSu['name'] = fm['newsu_name'].value;
+    newSu['must'] = fm['newsu_must'].checked;
+    newSu['type'] = fm['newsu_type'].value;
+    newSu['comment'] = fm['newsu_comment'].value;
+    newSu['data'] = fm['newsu_data'].value;
     suData[suData.length] = newSu;
     show_suarea();
 }
 
 function su_makesuData()
 {
+    var fm = stupla_fetch_form();
     for (var i = 0; i < suData.length; i++)
     {
-        suData[i]['name'] = document.forms.mform1['su_name_'+i].value;
-        suData[i]['must'] = document.forms.mform1['su_must_'+i].checked;
-        suData[i]['type'] = document.forms.mform1['su_type_'+i].value;
-        suData[i]['comment'] = document.forms.mform1['su_comment_'+i].value;
-        suData[i]['data'] = document.forms.mform1['su_data_'+i].value;
+        suData[i]['name'] = fm['su_name_'+i].value;
+        suData[i]['must'] = fm['su_must_'+i].checked;
+        suData[i]['type'] = fm['su_type_'+i].value;
+        suData[i]['comment'] = fm['su_comment_'+i].value;
+        suData[i]['data'] = fm['su_data_'+i].value;
     }
+}
+
+function stupla_fetch_form() {
+	for (var i = 0; i < document.forms.length; i++) {
+		if ( document.forms[i].timelimit )
+		  return document.forms[i];
+	}
+	return document.forms[0];
 }
