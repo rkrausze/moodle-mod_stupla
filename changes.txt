@@ -1,3 +1,7 @@
+Version 2023102301
+=========================
+* Fix for prot_head layout in 4.1
+
 Version 2020031700
 =========================
 * Fix for prot_head layout in 3.7

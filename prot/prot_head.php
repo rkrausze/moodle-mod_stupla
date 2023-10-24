@@ -56,7 +56,20 @@ if ( $i1 !== FALSE )
   $i2 = strpos($sOut, '>', $i1);
   $sOut = substr($sOut, 0, $i2+1);
 }
+$sOut = str_replace('</head>', 
+'<style type="text/css">
+	td, p { font-size:10pt;font-family:Arial;font-weight:bold }
+	body, .path-mod-stupla-prot, #page-header, #page-content { background-color:#FFFF99; }
+	#page-content .region-content { overflow: hidden; padding: 0; }
+	body.drawer-open-left { margin-left: 0; }
+	footer { display: none; }
+	#page-mod-stupla-prot-prot .drawer { display: none; }
+	#page-mod-stupla-prot-prot { margin-left: auto; }
+    #page { margin-left: 0 !important; margin-right: 0 !important; padding-left: 16px !important; padding-right: 16px !important; margin-top: 69px !important;}
+</style>'.
+'</head>', $sOut);
 echo str_replace('<a ', '<a target="_top" ', $sOut);
+
 
 $studies = stupla_get_studies();
 $sessions = stupla_prot_get_sessions($stupla);
@@ -126,7 +139,7 @@ foreach ($sessions as $session) {
 <script type="text/javascript">
 //<![CDATA[
 
-var f = document.forms[0];
+var f = document.forms['f'];
 var PHP = "";
 var s2_short = new Array(
 <?php
@@ -563,7 +576,6 @@ var AvailField = new Array();
 var SpecialTopic = new Array();
 //]]>
 </script>
-<div>&nbsp;</div>
 <?php
 $sOut = $OUTPUT->footer();
 $i = strpos($sOut, '<footer');
